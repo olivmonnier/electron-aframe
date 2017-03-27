@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^3.2.0/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
     <script src="./js/components/follow.js"></script>
     <style>
@@ -16,35 +17,35 @@
     </style>
   </head>
   <body>
-    <a-scene>
+    <a-scene fog="type: linear; color: #111; far: 25; near: 0">
       <a-assets>
         <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/>
         <a-mixin id="leaf-block"
                  geometry="primitive: box; depth: 2.5; height: 2.5; width: 2.5"
                  material="color: #69C181; side: double"></a-mixin>
+        <a-mixin id="light" geometry="primitive: sphere; radius: 1" material="color: #FFF; shader: flat" light="color: #DDDDFF; distance: 120; intensity: 2; type: point"></a-mixin>
         <script id="forest" type="text/x-nunjucks-template">
           {% for n in range(0, 30) %}
             {% set x = range(-10, 10) | random %}
             {% set z = range(-10, 10) | random %}
             {% set ry = range(0, 180) | random %}
             <a-entity template="src: js/templates/tree.template; type: handlebars"
-                      data-position="{{ x * 10 }} 0 {{ z * 10 }}"
+                      data-position="{{ x * 10 }} 2 {{ z * 10 }}"
                       data-rotation="0 {{ry}} 0"
                       data-trunkcolor="#623B1C"></a-entity>
           {% endfor %}
         </script>
       </a-assets>
 
-      <a-cylinder id="ground" src="#groundTexture" radius="32" height="0.1"></a-cylinder>
-
-      <a-sky id="background" src="#skyTexture" theta-length="90" radius="30" follow="target: #camera; axis: 'xz'; speed: 10;"></a-sky>
-
-      <a-entity id="moon" geometry="primitive: sphere; radius: 0.5"
-                material="color: #FEFCD7; shader: flat"
-                light="color: #FAFAFA; intensity: 1.5; type: point;"
-                position="0 25 0">
+      <a-entity id="moon" position="0 0 0" rotation="" scale="" visible="" follow="target: #camera; axis: 'xz'; speed: 10;">
+        <a-animation attribute="rotation" to="360 0 0" repeat="indefinite" easing="linear" dur="86400"></a-animation>
+        <a-entity mixin="light" position="0 30 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FEFCD7;" light=""></a-entity>
       </a-entity>
+
+      <a-plane id="ground" src="#groundTexture" width="32" height="32" rotation="-90 0 0"></a-plane>
+
+      <a-sky id="background" src="#skyTexture" theta-length="90" radius="30" follow="target: #camera; axis: 'xz'; speed: 10;" material="fog: false;"></a-sky>
 
       <a-entity template="src: #forest" position="0 0 0"></a-entity>
 
