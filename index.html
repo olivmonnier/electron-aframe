@@ -39,12 +39,19 @@
 
       <a-entity id="moon" position="0 0 0" rotation="" scale="" visible="" follow="target: #camera; axis: 'xz'; speed: 10;">
         <a-animation attribute="rotation" to="360 0 0" repeat="indefinite" easing="linear" dur="86400"></a-animation>
-        <a-entity mixin="light" position="0 30 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FEFCD7;" light=""></a-entity>
+        <a-entity mixin="light" position="0 -30 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FEFCD7;" light=""></a-entity>
       </a-entity>
 
-      <a-plane id="ground" src="#groundTexture" width="32" height="32" rotation="-90 0 0"></a-plane>
+      <a-entity id="sun" position="0 0 0" rotation="" scale="" visible="" follow="target: #camera; axis: 'xz'; speed: 10;">
+        <a-animation attribute="rotation" to="360 0 0" repeat="indefinite" easing="linear" dur="86400"></a-animation>
+        <a-entity mixin="light" position="0 30 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FCD440;" light="intensity: 4"></a-entity>
+      </a-entity>
 
-      <a-sky id="background" src="#skyTexture" theta-length="90" radius="30" follow="target: #camera; axis: 'xz'; speed: 10;" material="fog: false;"></a-sky>
+      <a-plane id="ground" material="color: #144018;" width="50" height="50" rotation="-90 0 0"></a-plane>
+
+      <a-sky id="background" theta-length="90" radius="30" follow="target: #camera; axis: 'xz'; speed: 10;" material="fog: false;">
+        <a-animation attribute="material.color" from="#7EC0EE" to="#003366" dur="43200" direction="alternate" repeat="indefinite"></a-animation>
+      </a-sky>
 
       <a-entity template="src: #forest" position="0 0 0"></a-entity>
 
