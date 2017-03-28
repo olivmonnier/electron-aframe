@@ -23,14 +23,14 @@
         <a-mixin id="leaf-block"
                  geometry="primitive: box; depth: 2.5; height: 2.5; width: 2.5"
                  material="color: #69C181; side: double"></a-mixin>
-        <a-mixin id="light" geometry="primitive: sphere; radius: 1" material="color: #FFF; shader: flat" light="color: #DDDDFF; distance: 120; intensity: 2; type: point"></a-mixin>
+        <a-mixin id="light" geometry="primitive: sphere; radius: 4" material="color: #FFF; shader: flat" light="color: #DDDDFF; distance: 150; intensity: 2; type: point"></a-mixin>
         <script id="forest" type="text/x-nunjucks-template">
-          {% for n in range(0, 30) %}
-            {% set x = range(-10, 10) | random %}
-            {% set z = range(-10, 10) | random %}
+          {% for n in range(0, 50) %}
+            {% set x = range(-20, 20) | random %}
+            {% set z = range(-20, 20) | random %}
             {% set ry = range(0, 180) | random %}
             <a-entity template="src: js/templates/tree.template; type: handlebars"
-                      data-position="{{ x * 10 }} 2 {{ z * 10 }}"
+                      data-position="{{ x * 5 }} 2 {{ z * 5 }}"
                       data-rotation="0 {{ry}} 0"
                       data-trunkcolor="#623B1C"></a-entity>
           {% endfor %}
@@ -39,17 +39,17 @@
 
       <a-entity id="moon" position="0 0 0" rotation="260 0 0" scale="" visible="" follow="target: #camera; axis: 'xz'; speed: 10;">
         <a-animation attribute="rotation" to="360 0 0" repeat="indefinite" easing="linear" dur="86400"></a-animation>
-        <a-entity mixin="light" position="0 -30 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FEFCD7;" light=""></a-entity>
+        <a-entity mixin="light" position="0 -120 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FEFCD7;" light=""></a-entity>
       </a-entity>
 
       <a-entity id="sun" position="0 0 0" rotation="90 0 0" scale="" visible="" follow="target: #camera; axis: 'xz'; speed: 10;">
         <a-animation attribute="rotation" to="360 0 0" repeat="indefinite" easing="linear" dur="86400"></a-animation>
-        <a-entity mixin="light" position="0 -30 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FCD440;" light="intensity: 4"></a-entity>
+        <a-entity mixin="light" position="0 -120 0" rotation="" scale="" visible="" geometry="" material="fog: false; color: #FCD440;" light="intensity: 10"></a-entity>
       </a-entity>
 
-      <a-plane id="ground" material="color: #144018;" width="50" height="50" rotation="-90 0 0"></a-plane>
+      <a-plane id="ground" material="color: #144018;" width="100" height="100" rotation="-90 0 0"></a-plane>
 
-      <a-sky id="background" theta-length="90" radius="30" follow="target: #camera; axis: 'xz'; speed: 10;" material="fog: false;">
+      <a-sky id="background" theta-length="90" radius="150" follow="target: #camera; axis: 'xz'; speed: 10;" material="fog: false; color: #7EC0EE">
         <a-animation attribute="material.color" from="#7EC0EE" to="#003366" dur="86400" direction="alternate" repeat="indefinite"></a-animation>
       </a-sky>
 
